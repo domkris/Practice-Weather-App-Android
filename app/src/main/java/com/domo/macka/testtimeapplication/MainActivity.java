@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 checkConnection();
-                final String cityName = city.getText().toString();
+                final String cityName = city.getText().toString().replaceAll("\\s+","");
 
                 if (connected) {
 
