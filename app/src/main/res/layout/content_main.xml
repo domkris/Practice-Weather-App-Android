@@ -105,7 +105,7 @@
             android:layout_height="match_parent"
             android:layout_above="@+id/typeOfConnection"
             android:layout_alignParentTop="true"
-            android:background="@drawable/color_background" />
+            android:background="@drawable/title_background" />
 
 
     </RelativeLayout>

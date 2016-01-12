@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     MyDBHandler weatherDatabase = new MyDBHandler(this, null, null, 1);
     private String cityAndCountry;
 
-    // STARTING DETAILED ACTIVITY
+    // STARTS DETAILED ACTIVITY
     public void sendMessage(View view) {
         Intent intent = new Intent(this, MapsActivity.class);
         Bundle extras = new Bundle();
