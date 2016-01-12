@@ -21,8 +21,14 @@ From left to right:<br>
       in the <i>City selection</i> field user can type in the name of desired city,<br>
       in this case <b>Helsinki</b> is typed in.</li>
   <li>Second picture shows the display when user types in the name of the city and clicks <b>Check City</b> button,<br>
-    in this case the weather forecast for Helsinki is shown for today's date and 4 other dates</li>
-  <li>Third picture: User can click on one of displayed dates for a detailed forecast ( second image ),<br>
-   here user can see the weather forecast per every three hours on a specific date.</li>
-  <li>Forth picture: if user wants to see the location of the place, he or she can click on the <b>Google Map</b> button ( second image ),<br></li>
+    in this case the weather forecast for Helsinki is shown for today's date and 4 other dates.</li>
+  <li>Third picture: User can click on one of displayed dates for a detailed forecast ( in second image ),<br>
+   which leads to another display where user can see the weather forecast per every three hours on a specific date.</li>
+  <li>Forth picture: if user wants to see the location of the place, he or she can click on the <b>Google Map</b> button ( in second image ),<br>
+  user can click the marker on the map to see the name of the city, country code and the temperature</li>
 </ul>
+<br>
+Clicking the back button will lead to previous display.
+
+<h3>Code</h3>
+
