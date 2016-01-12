@@ -3,9 +3,8 @@
 This project is an Android application "Weather Info" used as an weather forecast.<br>
 I have been doing this project to learn Android programming and how to make Android applications.
 
-<h><b>Interface</b></h>
-<br>
-<br>
+<h1><b>Interface</b></h1>
+
 <table style="width:100%">
   <tr>
     <td><a href="http://s1294.photobucket.com/user/DoVBid/media/918d39e9-b7c9-42d9-85e0-5f0aa2db7c18_zpsofvdt2vp.png.html" target="_blank"><img src="http://i1294.photobucket.com/albums/b604/DoVBid/918d39e9-b7c9-42d9-85e0-5f0aa2db7c18_zpsofvdt2vp.png" border="0" alt=" photo 918d39e9-b7c9-42d9-85e0-5f0aa2db7c18_zpsofvdt2vp.png"/></a></td>
