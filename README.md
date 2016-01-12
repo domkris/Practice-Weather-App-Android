@@ -12,5 +12,15 @@ I have been doing this project to learn Android programming and how to make Andr
     <td><a href="http://s1294.photobucket.com/user/DoVBid/media/7116f4b2-1895-4e1a-9bd7-57f7938e1c32_zpsxca7a5nv.png.html" target="_blank"><img src="http://i1294.photobucket.com/albums/b604/DoVBid/7116f4b2-1895-4e1a-9bd7-57f7938e1c32_zpsxca7a5nv.png" border="0" alt=" photo 7116f4b2-1895-4e1a-9bd7-57f7938e1c32_zpsxca7a5nv.png"/></a></td>
     <td><a href="http://s1294.photobucket.com/user/DoVBid/media/065afc33-48ce-4df0-8556-6bcdb638999a_zpsbo3sqstq.png.html" target="_blank"><img src="http://i1294.photobucket.com/albums/b604/DoVBid/065afc33-48ce-4df0-8556-6bcdb638999a_zpsbo3sqstq.png" border="0" alt=" photo 065afc33-48ce-4df0-8556-6bcdb638999a_zpsbo3sqstq.png"/></a></td>
   </tr>
- 
 </table>
+
+<br>
+From left to right:<br>
+<ul>
+  <li>First image shows the user interface when the application is launched<br>
+      in the <i>City selection</i> field user can type in the name of desired city,<br>
+      in this case <b>Helsinki</b> is typed in.</li>
+  <li>Second picture displays the weather forecast for Helsinki, today's date and 4 days after</li>
+  <li>Milk</li>
+  <li>Milk</li>
+</ul>
