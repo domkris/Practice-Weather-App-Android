@@ -1,6 +1,6 @@
 # Practice-Weather-App-Android
 
-This project is an Android application "Weather Info" used as an weather forecast.<br>
+This project is an Android application "Weather Info" used as an weather forecast made in Android Studio.<br>
 I have been doing this project to learn Android programming and how to make Android applications.
 
 <h3><b>Interface</b></h3>
