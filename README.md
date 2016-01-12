@@ -60,5 +60,6 @@ Clicking the back button will lead to previous display.
     <td></td>
   </tr>
 </table>
+All weather images  in <i>res/drawable</i> are downloaded from <a href=http://openweathermap.org/api>openweathermap.org/api</a>.
 
 <h4></h4>
