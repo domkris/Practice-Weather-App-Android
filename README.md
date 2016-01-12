@@ -3,7 +3,7 @@
 This project is an Android application "Weather Info" used as an weather forecast.<br>
 I have been doing this project to learn Android programming and how to make Android applications.
 
-<h1><b>Interface</b></h1>
+<h3><b>Interface</b></h3>
 
 <table style="width:100%">
   <tr>
