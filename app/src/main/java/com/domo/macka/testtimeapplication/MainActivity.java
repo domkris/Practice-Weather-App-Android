@@ -108,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
                         databaseView.setText(cityAndCountry);
                         setTemperatureAndDescriptions(dates);
 
+
                         MyGrid adapter = new MyGrid(MainActivity.this, dates, values, temperatures);
                         grid.setVisibility(View.VISIBLE);
                         grid.setAdapter(adapter);
