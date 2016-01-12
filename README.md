@@ -17,10 +17,11 @@ I have been doing this project to learn Android programming and how to make Andr
 <br>
 From left to right:<br>
 <ul>
-  <li>First image shows the user interface when the application is launched (<i>MainActivity</i> created)<br>
+  <li>First image shows the user interface when the application is launched ( <i>MainActivity</i> created )<br>
       in the <i>City selection</i> field user can type in the name of desired city,<br>
       in this case <b>Helsinki</b> is typed in.</li>
   <li>Second picture displays the weather forecast for Helsinki, today's date and 4 other datesr</li>
-  <li>User can click on one of displayed dates for a detailed forecast, this creates <i>DetailedActivity</i></li>
+  <li>User can click on one of displayed dates for a detailed forecast, ( <i>DetailedActivity</i> created ),<br>
+   here user can see the weather forecast per every three hours on a specific date</li>
   <li>Milk</li>
 </ul>
