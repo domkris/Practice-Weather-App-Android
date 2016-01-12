@@ -1,21 +1,17 @@
-
-
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relative_map"
     android:name="com.google.android.gms.maps.MapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/relative_map"
-    tools:showIn="@layout/activity_main"
-    tools:context=".MapsActivity">
+    tools:context=".MapsActivity"
+    tools:showIn="@layout/activity_main">
 
-<fragment
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerHorizontal="true"
-    android:id="@+id/map"
-    tools:context="com.domo.macka.testtimeapplication.MapsActivity"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
-    />
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        tools:context="com.domo.macka.testtimeapplication.MapsActivity" />
 </RelativeLayout>

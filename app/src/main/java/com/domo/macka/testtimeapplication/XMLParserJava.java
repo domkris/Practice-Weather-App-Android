@@ -7,11 +7,6 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-/**
- * Created by Macka on 11/20/15.
- */
-
-
 public class XMLParserJava {
     private String urlString;
     private String city;
@@ -21,11 +16,8 @@ public class XMLParserJava {
     private String date_from;
     private String symbol_name;
     private String temperature_value;
-
-
-
-    private boolean checkTodayTemp = false;
-    private int timeNow = 15;
+    private String countryCode;
+    private boolean error = false;
 
 
     private XmlPullParserFactory xmlFactoryObject;
@@ -59,7 +51,7 @@ public class XMLParserJava {
                         if (name.equals("time")) {
 
                             String timeFrom = myParser.getAttributeValue(null, "from");
-                            date_from = timeFrom.substring(0, 10) +":"+ timeFrom.substring(11, 13)+"h";
+                            date_from = timeFrom.substring(0, 10) + ": " + timeFrom.substring(11, 13) + "h";
                             i++;
 
                         }
@@ -69,7 +61,7 @@ public class XMLParserJava {
                             i++;
                         }
                         if (name.equals("temperature")) {
-                            String temperature = myParser.getAttributeValue(null,"value");
+                            String temperature = myParser.getAttributeValue(null, "value");
                             temperature_value = temperature;
                             i++;
                         }
@@ -80,6 +72,7 @@ public class XMLParserJava {
                     case XmlPullParser.TEXT:
 
                         text = myParser.getText();
+                        //Log.d(text, "ERROR");
 
                         break;
 
@@ -89,22 +82,29 @@ public class XMLParserJava {
                         if (name.equalsIgnoreCase("name")) {
                             city = text;
                         }
+                        if (name.equals("country")) {
+                            countryCode = text;
+                        }
 
 
                         break;
 
                 }
-                if(i == 3){
+                if (i == 3) {
                     i = 0;
-                    database.addWeather(date_from,symbol_name,temperature_value);
+                    database.addWeather(date_from, symbol_name, temperature_value);
                 }
-                event = myParser.next();
 
+                event = myParser.next();
             }
+
             parsingComplete = false;
 
         } catch (Exception e) {
             e.printStackTrace();
+            //Log.d("ERROR", "ERRORRRR");
+            error = true;
+            parsingComplete = false;
         }
     }
 
@@ -134,6 +134,8 @@ public class XMLParserJava {
 
                 } catch (Exception e) {
                     e.printStackTrace();
+                    error = true;
+                    parsingComplete = false;
                 }
             }
         });
@@ -142,13 +144,24 @@ public class XMLParserJava {
     }
 
 
-
     public String getLatitude() {
         return latitude;
     }
 
     public String getLongitude() {
         return longitude;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public boolean getError() {
+        return error;
     }
 
 }

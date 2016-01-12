@@ -9,9 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-/**
- * Created by Macka on 12/8/15.
- */
 public class MyGrid extends BaseAdapter {
     private Context myContext;
     private TextView textView;
@@ -53,19 +50,19 @@ public class MyGrid extends BaseAdapter {
         LayoutInflater layoutInflater = (LayoutInflater) myContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
-            grid = new View(myContext);
             grid = layoutInflater.inflate(R.layout.grid_single, null);
             textView = (TextView) grid.findViewById(R.id.text_grid);
+            textView.setTextColor(myContext.getResources().getColorStateList(R.color.colorTextTwo));
             imageView = (ImageView) grid.findViewById(R.id.image_grid);
 
-            Log.d(dates_from[0]+" "+symbol_names[0]+" "+ temperature_values[0],"PRVA");
-            if (symbol_names[position]!=null) {
+            Log.d(dates_from[0] + " " + symbol_names[0] + " " + temperature_values[0], "PRVA");
+            if (symbol_names[position] != null) {
                 setGeneralWeatherIcon(symbol_names[position]);
                 textView.setText(dates_from[position] + "\n" + symbol_names[position] + "\n" + temperature_values[position] + "C");
             }
 
         } else {
-            grid = (View) convertView;
+            grid = convertView;
         }
         return grid;
     }
@@ -76,7 +73,6 @@ public class MyGrid extends BaseAdapter {
         if (weather.contains("clear")) {
             imageView.setImageResource(R.drawable.clear_sky_d);
         }
-
 
         if (weather.contains("few clouds")) {
             imageView.setImageResource(R.drawable.few_clouds_d);
@@ -104,9 +100,6 @@ public class MyGrid extends BaseAdapter {
         }
         if (weather.contains("mist")) {
             imageView.setImageResource(R.drawable.mist);
-        }
-        else {
-
         }
     }
 }

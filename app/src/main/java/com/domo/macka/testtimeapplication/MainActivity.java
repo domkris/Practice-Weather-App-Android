@@ -2,7 +2,6 @@ package com.domo.macka.testtimeapplication;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -22,21 +21,26 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
+
     double latitude;
     double longitude;
-    MyDBHandler weatherDatabase = new MyDBHandler(this,null,null,1);
+    MyDBHandler weatherDatabase = new MyDBHandler(this, null, null, 1);
+    private String cityAndCountry;
 
+    // STARTING DETAILED ACTIVITY
     public void sendMessage(View view) {
         Intent intent = new Intent(this, MapsActivity.class);
         Bundle extras = new Bundle();
         extras.putDouble("latitude", latitude);
         extras.putDouble("longitude", longitude);
+        extras.putString("city_and_country", cityAndCountry);
+        extras.putString("temperature", temperatures[0]);
         intent.putExtras(extras);
         startActivity(intent);
     }
 
     public String url;
-    private XMLParserJava obj;
+    private XMLParserJava xmlParserJava;
     String[] temperatures = new String[5];
     String[] values = new String[5];
     String[] temperaturesClickedDate = new String[8];
@@ -44,17 +48,16 @@ public class MainActivity extends AppCompatActivity {
 
 
     Button cityButton, googleMap;
-    TextView typeOfConn,databaseView;
+    TextView typeOfConn, databaseView, cityStatus;
     EditText city;
     boolean connected = false;
     boolean clicked = false;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.d("onCreate", "LIFE");
+        //Log.d("onCreate", "LIFE");
 
 
         cityButton = (Button) findViewById(R.id.city_selection);
@@ -62,185 +65,143 @@ public class MainActivity extends AppCompatActivity {
         googleMap.setClickable(false);
         typeOfConn = (TextView) findViewById(R.id.typeOfConnection);
         city = (EditText) findViewById(R.id.write_city);
+        databaseView = (TextView) findViewById(R.id.database);
+        cityStatus = (TextView) findViewById(R.id.text_status);
         checkConnection();
 
 
         cityButton.setOnClickListener(new View.OnClickListener() {
+            GridView grid = (GridView) findViewById(R.id.gridView);
+
             @Override
             public void onClick(View v) {
                 checkConnection();
+                final String cityName = city.getText().toString();
+
                 if (connected) {
 
-                    final String cityName = city.getText().toString();
                     url = "http://api.openweathermap.org/data/2.5/forecast?q="
                             + cityName + "," + "&mode=xml&appid=2de143494c0b295cca9337e1e96b00e0";
 
-                    if(clicked){
+                    if (clicked) {
                         clicked = false;
                         weatherDatabase.deleteTable();
                     }
-                    if(!clicked){
-                        clicked=true;
+
+                    if (!clicked) {
+                        clicked = true;
                     }
-                    obj = new XMLParserJava(url,weatherDatabase);
-                    obj.fetchXML();
+
+                    xmlParserJava = new XMLParserJava(url, weatherDatabase);
+                    xmlParserJava.fetchXML();
 
                     // WAIT FOR THE DOCUMENT TO BE READ
                     do {
-                    } while (obj.parsingComplete);
+                    } while (xmlParserJava.parsingComplete);
+                    if (!xmlParserJava.getError()) {
+                        final String[] dates = getDates();
 
-                    final String[] dates = getDates();
+                        latitude = Double.valueOf(xmlParserJava.getLatitude());
+                        longitude = Double.valueOf(xmlParserJava.getLongitude());
 
-                    latitude = Double.valueOf(obj.getLatitude());
-                    longitude = Double.valueOf(obj.getLongitude());
+                        cityAndCountry = xmlParserJava.getCity() + ", " + xmlParserJava.getCountryCode();
+                        databaseView.setText(cityAndCountry);
+                        setTemperatureAndDescriptions(dates);
 
-                    databaseView = (TextView)findViewById(R.id.database);
-                    databaseView.setText(cityName);
-                    setTemperatureAndDescriptions(dates);
+                        MyGrid adapter = new MyGrid(MainActivity.this, dates, values, temperatures);
+                        grid.setVisibility(View.VISIBLE);
+                        grid.setAdapter(adapter);
+                        city.setText("");
+                        cityStatus.setText("");
+                        grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view,
+                                                    int position, long id) {
+                                Intent intent = new Intent(view.getContext(), DetailedActivity.class);
+                                Bundle extras = new Bundle();
+                                String date = dates[position];
 
-                   //
-                   // weatherDatabase.deleteTable();
+                                setDetailedTemperatureAndDescription(dates[position]);
+                                extras.putString("city", cityAndCountry);
+                                extras.putStringArray("values", valuesClickedDate);
+                                extras.putStringArray("temperatures", temperaturesClickedDate);
+                                extras.putStringArray("dates", weatherDatabase.getDatesClicked(date));
+                                intent.putExtras(extras);
+                                startActivity(intent);
+                            }
+                        });
+                        googleMap.setClickable(true);
 
-
-
-                    MyGrid adapter = new MyGrid(MainActivity.this, dates, values, temperatures);
-                    GridView grid = (GridView) findViewById(R.id.gridView);
-                    grid.setAdapter(adapter);
-                    Log.d(""+ values.length,"ADAPTER");
-                    city.setText("");
-                    grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view,
-                                                int position, long id) {
-                            Intent intent = new Intent(view.getContext(), DetailedActivity.class);
-                            Bundle extras = new Bundle();
-                            String date = dates[position];
-                            Log.d(date,"DATUM2");
-                            Log.d(""+position,"Pozicija");
-
-                            setDetailedTemperatureAndDescription(dates[position]);
-                            extras.putString("city", cityName);
-                            extras.putStringArray("values", valuesClickedDate);
-                            extras.putStringArray("temperatures",temperaturesClickedDate);
-                            extras.putStringArray("dates",weatherDatabase.getDatesClicked(date));
-                            intent.putExtras(extras);
-                            startActivity(intent);
-
-
-                        }
-                    });
-
-
-
-                    googleMap.setClickable(true);
-
-                } else {
-                    typeOfConn.setText("ERROR not connected!");
-                    typeOfConn.setTextColor(Color.RED);
-
-
+                    } else if (xmlParserJava.getError()) {
+                        cityStatus.setText(R.string.wrong_input);
+                        googleMap.setClickable(false);
+                        databaseView.setText("");
+                        grid.setVisibility(View.GONE);
+                    }
+                }
+                if (!connected) {
+                    typeOfConn.setText(R.string.not_connected);
+                    googleMap.setClickable(false);
                 }
             }
         });
 
 
     }
-
+    // SETTING DATA FOR DETAILED ACTIVITY GRID
     private void setDetailedTemperatureAndDescription(String date) {
 
-            temperaturesClickedDate=weatherDatabase.getTemperatureValueClickedDate(date);
-            valuesClickedDate = weatherDatabase.getSymbolNameClickedDate(date);
-            Log.d(""+date,"date");
-
+        temperaturesClickedDate = weatherDatabase.getTemperatureValueClickedDate(date);
+        valuesClickedDate = weatherDatabase.getSymbolNameClickedDate(date);
+        Log.d("" + date, "date");
 
 
     }
-
+    // SETTING DATA FOR MAIN ACTIVITY GRID
     private void setTemperatureAndDescriptions(String[] dates) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("HH");
         Calendar c = Calendar.getInstance();
         int hour = Integer.parseInt(sdf.format(c.getTime()));
-        if(hour< 3){
-            hour =0;
-        }
-        else {
-            hour = hour - (hour%3);
+        if (hour < 3) {
+            hour = 0;
+        } else {
+            hour = hour - (hour % 3);
         }
 
 
-        if(hour<10){
-            for(int i = 0; i<=4; i++){
-                String date = dates[i]+":0"+hour+"h";
-                Log.d(date,"VRIJEME NAKNADNO");
-                temperatures[i]=weatherDatabase.getTemperatureValue(date);
+        if (hour < 10) {
+            for (int i = 0; i <= 4; i++) {
+                String date = dates[i] + ": 0" + hour + "h";
+                temperatures[i] = weatherDatabase.getTemperatureValue(date);
                 values[i] = weatherDatabase.getSymbolName(date);
             }
         }
-        if(hour>=10){
-            for(int i = 0; i<=4; i++){
-                String date = dates[i]+":"+hour+"h";
-                Log.d(date,"VRIJEME NAKNADNO");
-                temperatures[i]=weatherDatabase.getTemperatureValue(date);
+        if (hour >= 10) {
+            for (int i = 0; i <= 4; i++) {
+                String date = dates[i] + ": " + hour + "h";
+                temperatures[i] = weatherDatabase.getTemperatureValue(date);
                 values[i] = weatherDatabase.getSymbolName(date);
             }
         }
-
-
-
-
-
-
 
 
     }
-
+    // SETTING DATES
     private String[] getDates() {
         String[] dates = new String[5];
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar c = Calendar.getInstance();
-        for(int i = 0;i<5;i++){
-            dates[i]= sdf.format(c.getTime());//n
+        for (int i = 0; i < 5; i++) {
+            dates[i] = sdf.format(c.getTime());//n
             c.add(Calendar.DATE, 1);
-            Log.d(dates[i],"DATUM");
+            Log.d(dates[i], "DATUM");
 
         }
         return dates;
     }
 
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.d("onResume", "LIFE");
-
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.d("onPause", "LIFE");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d("onStop", "LIFE");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d("onDestroy", "LIFE");
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.d("onStart", "LIFE");
-    }
 
     private void checkConnection() {
         ConnectivityManager connManager =
@@ -253,19 +214,16 @@ public class MainActivity extends AppCompatActivity {
             boolean mobileConnected = info.getType() == ConnectivityManager.TYPE_MOBILE;
             if (wifiConnected) {
 
-                typeOfConn.setText("Connected: WI-FI ");
-                typeOfConn.setTextColor(Color.GREEN);
+                typeOfConn.setText(R.string.wifi_connected);
                 connected = true;
 
             } else if (mobileConnected) {
 
-                typeOfConn.setText("Connected: MOBILE ");
-                typeOfConn.setTextColor(Color.GREEN);
+                typeOfConn.setText(R.string.mobile_connected);
                 connected = true;
             }
         } else {
-            typeOfConn.setText("ERROR: not connected ");
-            typeOfConn.setTextColor(Color.RED);
+            typeOfConn.setText(R.string.not_connected);
             connected = false;
 
 
@@ -273,6 +231,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    protected void onDestroy() {
+        weatherDatabase.deleteTable();
+        super.onDestroy();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
