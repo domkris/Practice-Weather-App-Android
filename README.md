@@ -3,21 +3,8 @@
 This project is an Android application "Weather Info" used as an weather forecast.<br>
 I have been doing this project to learn Android programming and how to make Android applications.
 
-<h>Activity classes</h>
-<ul>
-  <li>MainActivity</li>
-  <li>DetailedActivity</li>
-  <li>MapsActivity</li>
-  <li>MyDBHandler</li>
-  <li>MyXMLParserJava</li>
-</ul>
-
-<h>Short description of activities</h>
+<h>Interface</h>
 <br>
-<br>
-<b>MainActivity</b>
-<br>
-This is the first Activity that is created upon starting the application.
 <br>
 <a href="http://s1294.photobucket.com/user/DoVBid/media/918d39e9-b7c9-42d9-85e0-5f0aa2db7c18_zpsofvdt2vp.png.html" target="_blank"><img src="http://i1294.photobucket.com/albums/b604/DoVBid/918d39e9-b7c9-42d9-85e0-5f0aa2db7c18_zpsofvdt2vp.png" border="0" alt=" photo 918d39e9-b7c9-42d9-85e0-5f0aa2db7c18_zpsofvdt2vp.png"/></a>
 <br>
