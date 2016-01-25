@@ -54,6 +54,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng latLng = new LatLng(latitude, longitude);
         String tempAndLocation = cityAndCountry + ", " + temperature + " C";
         Marker marker = mMap.addMarker(new MarkerOptions().position(latLng).title(tempAndLocation));
+        marker.showInfoWindow();
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
     }

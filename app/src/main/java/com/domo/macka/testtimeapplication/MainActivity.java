@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 if (connected) {
 
                     url = "http://api.openweathermap.org/data/2.5/forecast?q="
-                            + cityName + "," + APIkey;
+                            + cityName + "," + "&mode=xml&appid="+APIkey;
 
                     if (clicked) {
                         clicked = false;
