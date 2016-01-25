@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     EditText city;
     boolean connected = false;
     boolean clicked = false;
+    String APIkey = "c28f839c2b24a1d4482dfe17889c2b43";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 if (connected) {
 
                     url = "http://api.openweathermap.org/data/2.5/forecast?q="
-                            + cityName + "," + "&mode=xml&appid=2de143494c0b295cca9337e1e96b00e0";
+                            + cityName + "," + APIkey;
 
                     if (clicked) {
                         clicked = false;
