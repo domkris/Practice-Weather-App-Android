@@ -29,14 +29,19 @@ public class MainActivity extends AppCompatActivity {
 
     // STARTS DETAILED ACTIVITY
     public void sendMessage(View view) {
-        Intent intent = new Intent(this, MapsActivity.class);
-        Bundle extras = new Bundle();
-        extras.putDouble("latitude", latitude);
-        extras.putDouble("longitude", longitude);
-        extras.putString("city_and_country", cityAndCountry);
-        extras.putString("temperature", temperatures[0]);
-        intent.putExtras(extras);
-        startActivity(intent);
+        if(correctInput){
+            Intent intent = new Intent(this, MapsActivity.class);
+            Bundle extras = new Bundle();
+            extras.putDouble("latitude", latitude);
+            extras.putDouble("longitude", longitude);
+            extras.putString("city_and_country", cityAndCountry);
+            extras.putString("temperature", temperatures[0]);
+            intent.putExtras(extras);
+            startActivity(intent);
+        }
+        else{
+            cityStatus.setText("Check the name of the city!");
+        }
     }
 
     public String url;
@@ -47,11 +52,13 @@ public class MainActivity extends AppCompatActivity {
     String[] valuesClickedDate = new String[8];
 
 
-    Button cityButton, googleMap;
+    Button inputForTheCity, googleMap;
     TextView typeOfConn, databaseView, cityStatus;
     EditText city;
     boolean connected = false;
     boolean clicked = false;
+    boolean correctInput = false;
+    // API KEY from the openweathermap.org
     String APIkey = "c28f839c2b24a1d4482dfe17889c2b43";
 
     @Override
@@ -61,28 +68,27 @@ public class MainActivity extends AppCompatActivity {
         //Log.d("onCreate", "LIFE");
 
 
-        cityButton = (Button) findViewById(R.id.city_selection);
+        inputForTheCity = (Button) findViewById(R.id.city_selection);
         googleMap = (Button) findViewById(R.id.mapButton);
-        googleMap.setClickable(false);
+       //googleMap.setClickable(false);
         typeOfConn = (TextView) findViewById(R.id.typeOfConnection);
         city = (EditText) findViewById(R.id.write_city);
         databaseView = (TextView) findViewById(R.id.database);
         cityStatus = (TextView) findViewById(R.id.text_status);
         checkConnection();
-
-
-        cityButton.setOnClickListener(new View.OnClickListener() {
+        inputForTheCity.setOnClickListener(new View.OnClickListener() {
             GridView grid = (GridView) findViewById(R.id.gridView);
 
             @Override
             public void onClick(View v) {
                 checkConnection();
-                final String cityName = city.getText().toString().replaceAll("\\s+","");
+                final String cityName = city.getText().toString().replaceAll("\\s+", "");
 
                 if (connected) {
+                    correctInput = true;
 
                     url = "http://api.openweathermap.org/data/2.5/forecast?q="
-                            + cityName + "," + "&mode=xml&appid="+APIkey;
+                            + cityName + "," + "&mode=xml&appid=" + APIkey;
 
                     if (clicked) {
                         clicked = false;
@@ -101,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                     } while (xmlParserJava.parsingComplete);
                     if (!xmlParserJava.getError()) {
                         final String[] dates = getDates();
+
 
                         latitude = Double.valueOf(xmlParserJava.getLatitude());
                         longitude = Double.valueOf(xmlParserJava.getLongitude());
@@ -137,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
 
                     } else if (xmlParserJava.getError()) {
                         cityStatus.setText(R.string.wrong_input);
+                        correctInput = false;
                         googleMap.setClickable(false);
                         databaseView.setText("");
                         grid.setVisibility(View.GONE);
