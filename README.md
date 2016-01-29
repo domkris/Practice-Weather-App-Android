@@ -70,5 +70,5 @@ All weather images  in <i>res/drawable</i> are downloaded from <a href=http://op
   <li> The size of weather image is automaticaly adjusted according to the device, one of the improvements would be to design images in various (hdpi, xhdpi, etc..) sizes</li>
 </ul>
 <br/>
-<strong>Notice</strong> This application is still work in progress.
+<strong>Notice:</strong> This application is still work in progress.
 
