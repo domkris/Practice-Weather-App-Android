@@ -48,7 +48,7 @@ Clicking the back button will lead to previous display.
     <td>Third activity, shows the location of the place using the <a href=https://developers.google.com/maps/>developers.google.com/maps API</a>, created when user clicks on a Google Map button, forth image.</td>
     <td>This class is used to handle the database (SQLite) of the application that contains descriptions, temperatures and the dates of a selected place, instantiated in the MainActivity class </td>
     <td>This class contains the data for the GridView, it gets the data from the MyDBHandler database, instantiated in the MainActivity class.</td>
-    <td>This class is used to read the XML file from the <a href=http://openweathermap.org/api>openweathermap.org/api</a>, and save the desired informations from the page into the MyDBHandler database,instantiated in the MainActivity class.
+    <td>This class is used to read the XML file from the <a href=http://openweathermap.org/api>openweathermap.org/api</a>, in a separate thread, and save the desired informations from the page into the MyDBHandler database, instantiated in the MainActivity class.
     </td>
   </tr>
   <tr>
