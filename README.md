@@ -67,6 +67,7 @@ All weather images  in <i>res/drawable</i> are downloaded from <a href=http://op
   <li>Instead of Google Map button,the map could be displayed in the main class and contain all of descriptions and images</li>
   <li>Adding a slider to the Google Map that will show the weather decsriptions for a specific date</li>
   <li>Improvement of the user interface (design & colors)</li>
+  <li> The size of weather image is automaticaly adjusted according to the device, one of the improvements would be to design images in various (hdpi, xhdpi, etc..) sizes</li>
 </ul>
 <br/>
 <strong>Notice</strong> This application is still work in progress.
