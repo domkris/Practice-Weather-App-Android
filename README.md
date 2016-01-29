@@ -30,7 +30,7 @@ From left to right:<br>
 <br>
 Clicking the back button will lead to previous display.
 
-<h3>Code</h3>
+<h3>Code description</h3>
 
 <h4>Java classes</h4>
 <table>
@@ -48,7 +48,7 @@ Clicking the back button will lead to previous display.
     <td>Third activity, shows the location of the place using the <a href=https://developers.google.com/maps/>developers.google.com/maps API</a>, created when user clicks on a Google Map button, forth image.</td>
     <td>This class is used to handle the database (SQLite) of the application that contains descriptions, temperatures and the dates of a selected place, instantiated in the MainActivity class </td>
     <td>This class contains the data for the GridView, it gets the data from the MyDBHandler database, instantiated in the MainActivity class.</td>
-    <td>This class is used to read the XML file from the <a href=http://openweathermap.org/api>openweathermap.org/api</a>, in a separate thread, and save the desired informations from the page into the MyDBHandler database, instantiated in the MainActivity class.
+    <td>This class is used to read the XML file from the <a href=http://openweathermap.org/api>openweathermap.org/api</a>, in a separate thread, and to save the desired informations from the page into the MyDBHandler database instantiated in the MainActivity class.
     </td>
   </tr>
   <tr>
@@ -61,5 +61,13 @@ Clicking the back button will lead to previous display.
   </tr>
 </table>
 All weather images  in <i>res/drawable</i> are downloaded from <a href=http://openweathermap.org/api>openweathermap.org/api</a>.
+<br/>
+<h3>Possible improvements</h3>
+<ul>
+  <li>Instead of Google Map button,the map could be displayed in the main class and contain all of descriptions and images</li>
+  <li>Adding a slider to the Google Map that will show the weather decsriptions for a specific date</li>
+  <li>Improvement of the user interface (design & colors)</li>
+</ul>
+<br/>
+<strong>Notice</strong> This application is still work in progress.
 
-<h4></h4>
