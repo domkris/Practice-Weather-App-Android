@@ -5,30 +5,7 @@ I have been doing this project to learn Android programming and how to make Andr
 
 <h3><b>Interface</b></h3>
 
-<table style="width:100%">
-  <tr>
-    <td>
-      
-      ![promisechains](https://github.com/domkris/files/blob/master/and1.png?raw=true)
-      
-    </td>
-    <td>
-      
-      ![promisechains](https://github.com/domkris/files/blob/master/and2.png?raw=true)
-      
-    </td>
-    <td>
-      
-      ![promisechains](https://github.com/domkris/files/blob/master/and3.png?raw=true)
-      
-    </td>
-    <td>
-      
-      ![promisechains](https://github.com/domkris/files/blob/master/and4.png?raw=true)
-      
-    </td>
-  </tr>
-</table>
+![promisechains](https://github.com/domkris/files/blob/master/and5.png?raw=true)
 
 <br>
 From left to right:<br>
